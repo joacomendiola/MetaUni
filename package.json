@@ -1,0 +1,32 @@
+{
+  "name": "metauni",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MetaUni - tracker gamificado del progreso academico universitario",
+  "workspaces": [
+    "shared",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm run dev -w @metauni/api",
+    "dev:web": "npm run dev -w @metauni/web",
+    "build": "npm run build -w @metauni/shared && npm run build -w @metauni/api && npm run build -w @metauni/web",
+    "typecheck": "npm run typecheck -w @metauni/api && npm run typecheck -w @metauni/web",
+    "test": "npm run test -w @metauni/api",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:generate": "npm run db:generate -w @metauni/api",
+    "db:migrate": "npm run db:migrate -w @metauni/api",
+    "db:push": "npm run db:push -w @metauni/api",
+    "db:seed": "npm run db:seed -w @metauni/api",
+    "db:studio": "npm run db:studio -w @metauni/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

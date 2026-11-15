@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: metauni-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: metauni
+      POSTGRES_PASSWORD: metauni
+      POSTGRES_DB: metauni
+    ports:
+      - "55432:5432"
+    volumes:
+      - metauni_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U metauni -d metauni"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  metauni_pgdata:
